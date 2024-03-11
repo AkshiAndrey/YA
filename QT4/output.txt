@@ -1,0 +1,84 @@
+garlic.bat
+liver.bat
+----------
+Summary: 51 GB
+
+cod.bmp
+turnip.bmp
+yogurt.bmp
+----------
+Summary: 371 GB
+
+coffee.docx
+custard.docx
+lemon.docx
+squash.docx
+----------
+Summary: 3 MB
+
+broccoli.exe
+mandarin.exe
+pearl_barley.exe
+----------
+Summary: 331 GB
+
+cultured_milk_foods.jpg
+flan.jpg
+jelly.jpg
+peach.jpg
+----------
+Summary: 381 GB
+
+cashew.pas
+pretzel.pas
+strawberry.pas
+----------
+Summary: 572 GB
+
+herring.pptx
+----------
+Summary: 411 GB
+
+beans.py
+beans.py
+candy_bar.py
+cream.py
+patridge.py
+root_beer.py
+toffee.py
+trout.py
+----------
+Summary: 893 GB
+
+candy.rar
+eggs.rar
+ham.rar
+honey.rar
+lime.rar
+strawberry.rar
+----------
+Summary: 472 GB
+
+brussels_sprout.txt
+cream.txt
+gingerbread.txt
+plum.txt
+sugar.txt
+watermelon.txt
+wheat.txt
+----------
+Summary: 1 TB
+
+box_of_chocolates.xlsx
+buckwheat.xlsx
+root_beer.xlsx
+----------
+Summary: 1 TB
+
+box_of_chocolates.zip
+cookie.zip
+dried_milk.zip
+ox_tongue.zip
+----------
+Summary: 972 GB
+

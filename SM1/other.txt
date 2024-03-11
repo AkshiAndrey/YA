@@ -1,0 +1,20 @@
+
+d = {}
+for line in open('input.txt').readlines():
+    name, size, unit = line.split()
+    _, ext = name.split('.')
+    d.setdefault(ext, list()).append((name, int(size), unit))
+
+
+
+
+from sys import stdin
+
+result = 0
+for i in stdin.readlines():
+    if 'далек' in i.lower():
+        result += 1
+print(result)
+
+
+

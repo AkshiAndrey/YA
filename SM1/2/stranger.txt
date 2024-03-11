@@ -1,0 +1,6 @@
+B tram 63.6 34.6 
+B tram 63.6 48.2 
+A tram 67.6 56.0 
+A tram 67.6 56.0 
+B tram 63.6 48.2 
+C tram 38.7 24.0 
