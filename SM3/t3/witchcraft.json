@@ -1,0 +1,22 @@
+[
+    {
+        "witchcraft": "scare",
+        "negative": 2,
+        "biggest": 51
+    },
+    {
+        "witchcraft": "enchant",
+        "negative": 4,
+        "biggest": 131
+    },
+    {
+        "witchcraft": "repair",
+        "negative": 4,
+        "biggest": 207
+    },
+    {
+        "witchcraft": "create",
+        "negative": 4,
+        "biggest": 255
+    }
+]

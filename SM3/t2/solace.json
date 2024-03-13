@@ -1,0 +1,11 @@
+{
+    "host": "127.0.0.1",
+    "port": 8080,
+    "words": [
+        "staff",
+        "hat",
+        "wizard",
+        "sheep"
+    ],
+    "long": 30
+}
