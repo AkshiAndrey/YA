@@ -19,10 +19,12 @@ class MyWidget(QMainWindow):
         self.tableWidget.setFixedWidth(650)
         self.tableWidget.move(10, 40)
 
-        self.statusBar = QStatusBar()
-        self.setStatusBar(self.statusBar)
+        # self.statusBar = QStatusBar()
+        # self.setStatusBar(self.statusBar)
 
         alphabet = [chr(ord('А') + i) for i in range(32)]
+        alphabet.insert(6, 'Ё')
+        print(alphabet)
 
         self.buttons = []
         for i, letter in enumerate(alphabet):
@@ -70,7 +72,7 @@ class MyWidget(QMainWindow):
             for col, item in enumerate(movie):
                 self.tableWidget.setItem(row, col, QTableWidgetItem(str(item)))
 
-        self.statusBar.showMessage(
+        self.statusBar().showMessage(
             f"Нашлось {len(filtered_movies)} записей" if len(filtered_movies) > 0 else "К сожалению, ничего не нашлось")
 
         conn.close()
