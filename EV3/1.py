@@ -1,7 +1,1 @@
-a = 3
-
-
-def asdf():
-    print(a)
-
-asdf()
+print(f'{1}')

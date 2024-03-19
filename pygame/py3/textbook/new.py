@@ -8,6 +8,7 @@ class Board:
         self.width = width
         self.height = height
         self.board = [[0] * width for _ in range(height)]
+        print(self.board)
         # значения по умолчанию
         self.left = 10
         self.top = 10
@@ -21,17 +22,45 @@ class Board:
         self.cell_size = cell_size
 
     def render(self, screen):
-        for i in range(self.width):
-            for j in range(self.height):
-                pygame.draw.rect(screen, self.color,
-                                 (self.left + self.cell_size * i,
-                                  self.top + self.cell_size * j,
+
+        for i in range(self.height):
+            for j in range(self.width):
+                color = self.color if self.board[i][j] == 0 else (111, 111, 111)
+                pygame.draw.rect(screen, color,
+                                 (self.top + self.cell_size * j, self.left + self.cell_size * i,
                                   self.cell_size, self.cell_size), 1)
 
     def set_view(self, left, top, size):
         self.top = top
         self.left = left
         self.cell_size = size
+
+    def get_click(self, mouse_pos):
+        cell = self.get_cell(mouse_pos)
+        self.on_click(cell)
+
+    def get_cell(self, mouse_pos):
+        height = self.cell_size * len(self.board) + self.top
+        width = self.cell_size * len(self.board[0]) + self.left
+        if self.top <= mouse_pos[0] < width and self.left <= mouse_pos[1] < height:
+            print(mouse_pos)
+            return mouse_pos
+        else:
+            return None
+
+    def on_click(self, mouse_pos):
+        if mouse_pos:
+            for i, value in enumerate(self.board):
+                for j,  value_ in enumerate(value):
+                    height = self.cell_size * (i + 1) + self.top
+                    width = self.cell_size * (j + 1) + self.left
+                    width_min = width - self.cell_size
+                    heght_min = height - self.cell_size
+                    if width_min < mouse_pos[0] < width and heght_min < mouse_pos[1] < height:
+                        self.board[i][j] = abs(value_ - 1)
+                        print(self.board[i][j])
+
+
 
 
 def main():
@@ -45,6 +74,8 @@ def main():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                board.get_click(event.pos)
         screen.fill((0, 0, 0))
         board.render(screen)
         pygame.display.flip()
