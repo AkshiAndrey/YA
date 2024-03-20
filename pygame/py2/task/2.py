@@ -4,7 +4,6 @@ WINDOW_SIZE = WINDOW_WIDTH, WINDOW_HEIGHT = 501, 501
 
 
 class Board:
-    # создание поля
     def __init__(self, width, height):
         self.width = width
         self.height = height
@@ -13,8 +12,9 @@ class Board:
         self.color = (255, 255, 255)
         self.left = 10
         self.top = 10
-        self.colors = {1: (255, 0, 0), 2: (0, 0, 255)}
+        self.colors = {1: (255, 0, 0), 2: (2, 0, 255)}
         self.cell_size = 30
+        self.turn_status = 1
 
     def set_view(self, left, top, cell_size):
         self.left = left
@@ -29,9 +29,22 @@ class Board:
                                  (self.top + self.cell_size * j, self.left + self.cell_size * i,
                                   self.cell_size, self.cell_size), 1)
                 if color := self.board[i][j]:
-                    pygame.draw.rect(screen, self.colors[color],
-                                     (self.top + self.cell_size * j + 1, self.left + self.cell_size * i + 1,
-                                      self.cell_size - 2, self.cell_size - 2), 0)
+                    if color == 1:
+                        pygame.draw.circle(screen, self.colors[color],
+                                           (self.top + self.cell_size * j + self.cell_size / 2,
+                                            self.left + self.cell_size * i + self.cell_size / 2),
+                                           self.cell_size / 2 - 5, 1)
+                    else:
+                        pygame.draw.line(screen, self.colors[color],
+                                         (self.top + self.cell_size * j + 2,
+                                          self.left + self.cell_size * i + 2),
+                                         (self.top + self.cell_size * j - 2 + self.cell_size,
+                                          self.left + self.cell_size * i - 2 + self.cell_size), 1)
+                        pygame.draw.line(screen, self.colors[color],
+                                         (self.top + self.cell_size * j + self.cell_size - 2,
+                                          self.left + self.cell_size * i + 2),
+                                         (self.top + self.cell_size * j + 2,
+                                          self.left + self.cell_size * i - 2 + self.cell_size), 1)
 
     def get_click(self, mouse_pos):
         cell = self.get_cell(mouse_pos)
@@ -54,16 +67,16 @@ class Board:
                     width_min = width - self.cell_size
                     heght_min = height - self.cell_size
                     if width_min < mouse_pos[0] < width and heght_min < mouse_pos[1] < height:
-                        self.board[i][j] += 1
-                        if self.board[i][j] > 2:
-                            self.board[i][j] = 0
+                        if not self.board[i][j]:
+                            self.board[i][j] = self.turn_status
+                            self.turn_status = 1 if self.turn_status == 2 else 2
 
 
 def main():
     pygame.init()
     screen = pygame.display.set_mode(WINDOW_SIZE)
     board = Board(10, 10)
-    # board.set_view(10, 10, 30)
+    # board.set_view(5, 5, 80)
     running = True
     while running:
         for event in pygame.event.get():
