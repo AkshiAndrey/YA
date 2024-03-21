@@ -114,6 +114,7 @@ class Lines(Board):
         while queue:
             current_cell = queue.popleft()
             if current_cell == (x1, y1):
+                self.viz = list(visited)
                 return True
 
             neighbors = [(1, 0), (-1, 0), (0, 1), (0, -1)]  # Possible movements: down, up, right, left
@@ -125,7 +126,7 @@ class Lines(Board):
                         new_row, new_col) not in visited:
                     visited.add((new_row, new_col))
 
-                elif 0 <= new_row < rows and 0 <= new_col < cols and self.board[new_row][new_col] != 1 and (
+                elif 0 <= new_row < rows and 0 <= new_col < cols and self.board[new_row][new_col] == 0 and (
                         new_row, new_col) not in visited:
                     queue.append((new_row, new_col))
                     visited.add((new_row, new_col))
