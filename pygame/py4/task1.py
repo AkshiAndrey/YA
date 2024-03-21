@@ -121,7 +121,7 @@ class Lines(Board):
             for dr, dc in neighbors:
                 new_row, new_col = current_cell[0] + dr, current_cell[1] + dc
 
-                if 0 <= new_row < rows and 0 <= new_col < cols and self.board[new_row][new_col] == 1 and (
+                if 0 <= new_row < rows and 0 <= new_col < cols and self.board[new_row][new_col] == 2 and (
                         new_row, new_col) not in visited:
                     visited.add((new_row, new_col))
 
