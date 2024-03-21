@@ -1,5 +1,5 @@
 import pygame
-from new import Board as br
+
 
 
 WINDOW_SIZE = WINDOW_WIDTH, WINDOW_HEIGHT = 501, 501
@@ -25,7 +25,7 @@ class Labyrinth:
         for y in range(self.height):
             for x in range(self.width):
                 rect = pygame.Rect(x * self.tile_size, y * self.tile_size,
-                                   (self.tile_size, self.tile_size))
+                                   self.tile_size, self.tile_size)
                 screen.fill(colors[self.map[y][x]], rect)
 
 
@@ -34,20 +34,16 @@ def main():
     pygame.init()
     screen = pygame.display.set_mode(WINDOW_SIZE)
     clock = pygame.time.Clock()
-    board = br(4, 5)
+    lab = Labyrinth("Simple_map.txt", 0, 2)
 
     running = True
     while running:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
-            if event.type == pygame.MOUSEBUTTONDOWN:
-                board.get_click(event.pos)
-
-            board.render(screen)
 
             screen.fill((0, 0, 0))
-            board.render(screen)
+            lab.render(screen)
             pygame.display.flip()
             clock.tick(FPS)
     pygame.display.quit()
