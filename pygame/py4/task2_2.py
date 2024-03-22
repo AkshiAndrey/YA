@@ -83,16 +83,20 @@ class Lines(Board):
     def has_path(self, x, y, cur):
         self.board_clone[x][y] = cur
         if y + 1 < self.height:
-            if self.board_clone[x][y + 1] == 0 or (self.board_clone[x][y + 1] != -1 and self.board_clone[x][y + 1] > cur):
+            if self.board_clone[x][y + 1] == 0 or (
+                    self.board_clone[x][y + 1] != -1 and self.board_clone[x][y + 1] > cur):
                 self.has_path(x, y + 1, cur + 1)
         if x + 1 < self.width:
-            if self.board_clone[x + 1][y] == 0 or (self.board_clone[x + 1][y] != -1 and self.board_clone[x + 1][y] > cur):
+            if self.board_clone[x + 1][y] == 0 or (
+                    self.board_clone[x + 1][y] != -1 and self.board_clone[x + 1][y] > cur):
                 self.has_path(x + 1, y, cur + 1)
         if x - 1 >= 0:
-            if self.board_clone[x - 1][y] == 0 or (self.board_clone[x - 1][y] != -1 and self.board_clone[x - 1][y] > cur):
+            if self.board_clone[x - 1][y] == 0 or (
+                    self.board_clone[x - 1][y] != -1 and self.board_clone[x - 1][y] > cur):
                 self.has_path(x - 1, y, cur + 1)
         if y - 1 >= 0:
-            if self.board_clone[x][y - 1] == 0 or (self.board_clone[x][y - 1] != -1 and self.board_clone[x][y - 1] > cur):
+            if self.board_clone[x][y - 1] == 0 or (
+                    self.board_clone[x][y - 1] != -1 and self.board_clone[x][y - 1] > cur):
                 self.has_path(x, y - 1, cur + 1)
 
     def find_path(self, start, x2, y2):
@@ -132,7 +136,6 @@ class Lines(Board):
                     self.has_path(*mouse_pos, 1)
                     self.moving = self.find_path(mouse_pos, *self.flag_red_circle)
                     if self.moving:
-                        print(self.path)
                         self.flag_red_circle = ()
             elif self.board[mouse_pos[0]][mouse_pos[1]] == 2:
                 self.board[mouse_pos[0]][mouse_pos[1]] = 1
@@ -142,12 +145,11 @@ class Lines(Board):
                 self.flag_red_circle = ()
 
     def move(self):
-        time.sleep(1)
+        time.sleep(0.5)
         if len(self.path) > 1:
             self.board[self.path[1][0]][self.path[1][1]] = 1
             self.board[self.path[0][0]][self.path[0][1]] = 3
-            del(self.path[0])
-            print(self.path)
+            del (self.path[0])
         else:
             self.moving = False
 
@@ -185,8 +187,8 @@ class Lines(Board):
 def main():
     pygame.init()
     screen = pygame.display.set_mode(WINDOW_SIZE)
-    lines = Lines(5, 5)
-    # lines.set_view(2, 2, 80)
+    lines = Lines(10, 10)
+
     running = True
     while running:
         for event in pygame.event.get():
@@ -200,7 +202,7 @@ def main():
 
             screen.fill((0, 0, 0))
             lines.render(screen)
-            pygame.display.flip()
+        pygame.display.flip()
 
     pygame.display.quit()
 
