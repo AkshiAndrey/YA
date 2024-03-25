@@ -31,7 +31,7 @@ def load_image(name, colorkey=None):
 class Hero(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__(all_sprites)
-        self.image = pygame.Surface((50, 50))
+        self.image = pygame.Surface((20, 20))
         self.image.fill(BLUE)
         self.rect = self.image.get_rect()
         self.rect.center = (400, 100)
@@ -82,7 +82,7 @@ while running:
                 hero.rect.x += 10
 
     all_sprites.update()
-    screen.fill((255, 255, 255))
+    screen.fill((0, 0, 0))
     horizontal_borders.draw(screen)
     all_sprites.draw(screen)
 
