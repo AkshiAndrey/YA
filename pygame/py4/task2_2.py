@@ -121,7 +121,6 @@ class Lines(Board):
         return False
 
     def on_click(self, mouse_pos):
-        self.board_clone = copy.deepcopy(self.board)
         if mouse_pos:
             if self.board[mouse_pos[0]][mouse_pos[1]] == 0:
                 if not self.flag_red_circle:
@@ -200,8 +199,8 @@ def main():
             if lines.moving:
                 lines.move()
 
-            screen.fill((0, 0, 0))
-            lines.render(screen)
+        screen.fill((0, 0, 0))
+        lines.render(screen)
         pygame.display.flip()
 
     pygame.display.quit()

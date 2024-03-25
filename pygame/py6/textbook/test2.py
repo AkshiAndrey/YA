@@ -46,7 +46,7 @@ class Ball(pygame.sprite.Sprite):
             self.vy = -self.vy
         if pygame.sprite.spritecollideany(self, vertical_borders):
             self.vx = -self.vx
-        if self.tm + 5 < time.time():
+        if self.tm + 2 < time.time():
             if other := pygame.sprite.spritecollideany(self, all_sprites):
                 if other.__class__ == Ball:
                     self.vy = -self.vy - 2
