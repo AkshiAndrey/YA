@@ -141,8 +141,7 @@ def generate_level(level):
     # вернем игрока, а также размер поля в клетках
     return new_player, x, y
 
-
-player, level_x, level_y = generate_level(load_level('map.txt'))
+player, level_x, level_y = generate_level(load_level(filename))
 # camera = Camera()
 clock = pygame.time.Clock()
 start_screen()
