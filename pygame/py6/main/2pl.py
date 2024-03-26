@@ -80,46 +80,57 @@ tile_images = {
 }
 player_image = load_image('mario.png', -1)
 
-tile_width = tile_height = 70
+tile_width = tile_height = 50
 
 
 class Tile(pygame.sprite.Sprite):
     def __init__(self, tile_type, pos_x, pos_y):
-        super().__init__(tiles_group, all_sprites)
+        super().__init__(tiles_group_free, all_sprites)
         self.image = tile_images[tile_type]
         self.rect = self.image.get_rect().move(
             tile_width * pos_x, tile_height * pos_y)
         print(self.rect)
 
+class Tile_block(pygame.sprite.Sprite):
+    def __init__(self, tile_type, pos_x, pos_y):
+        super().__init__(tiles_group_block, all_sprites)
+        self.image = tile_images[tile_type]
+        self.rect = self.image.get_rect().move(
+            tile_width * pos_x, tile_height * pos_y)
+        print(self.rect)
 
 class Player(pygame.sprite.Sprite):
     def __init__(self, pos_x, pos_y):
-        super().__init__(player_group, all_sprites)
+        super().__init__(player_group)
         self.image = player_image
         self.rect = self.image.get_rect().move(
             tile_width * pos_x, tile_height * pos_y)
 
     def update(self, x, y):
+        x_, y_ = self.rect.x, self.rect.y
         self.rect.update(x, y, tile_width, tile_height)
+        stop_list = pygame.sprite.spritecollide(self, tiles_group_block, False)
+        if stop_list:
+            self.rect.update(x_, y_, tile_width, tile_height)
 
 
 
 
-class Camera:
-    # зададим начальный сдвиг камеры
-    def __init__(self):
-        self.dx = 0
-        self.dy = 0
-
-    # сдвинуть объект obj на смещение камеры
-    def apply(self, obj):
-        obj.rect.x += self.dx
-        obj.rect.y += self.dy
-
-    # позиционировать камеру на объекте target
-    def update(self, target):
-        self.dx = -(target.rect.x + target.rect.w // 2 - WIDTH // 2)
-        self.dy = -(target.rect.y + target.rect.h // 2 - HEIGHT // 2)
+# class Camera:
+#     # зададим начальный сдвиг камеры
+#     def __init__(self):
+#         self.dx = 0
+#         self.dy = 0
+#
+#     # сдвинуть объект obj на смещение камеры
+#     def apply(self, obj):
+#         obj.rect.x += self.dx
+#         obj.rect.y += self.dy
+#
+#     # позиционировать камеру на объекте target
+#     def update(self, target):
+#         self.dx = -(target.rect.x + target.rect.w // 2 - WIDTH // 2)
+#         self.dy = -(target.rect.y + target.rect.h // 2 - HEIGHT // 2)
 
 
 # основной персонаж
@@ -127,7 +138,8 @@ player = None
 
 # группы спрайтов
 all_sprites = pygame.sprite.Group()
-tiles_group = pygame.sprite.Group()
+tiles_group_free = pygame.sprite.Group()
+tiles_group_block = pygame.sprite.Group()
 player_group = pygame.sprite.Group()
 
 
@@ -138,7 +150,7 @@ def generate_level(level):
             if level[y][x] == '.':
                 Tile('empty', x, y)
             elif level[y][x] == '#':
-                Tile('wall', x, y)
+                Tile_block('wall', x, y)
             elif level[y][x] == '@':
                 Tile('empty', x, y)
                 new_player = Player(x, y)
@@ -146,7 +158,7 @@ def generate_level(level):
     return new_player, x, y
 
 player, level_x, level_y = generate_level(load_level('map.txt'))
-camera = Camera()
+# camera = Camera()
 clock = pygame.time.Clock()
 start_screen()
 while True:
@@ -156,21 +168,23 @@ while True:
         if event.type == pygame.QUIT:
             terminate()
         elif event.type == pygame.KEYDOWN and event.key == pygame.K_LEFT:
-            player.update(player.rect.x - 70, player.rect.y)
+            player.update(player.rect.x - 50, player.rect.y)
         elif event.type == pygame.KEYDOWN and event.key == pygame.K_RIGHT:
-            player.update(player.rect.x + 70, player.rect.y)
+            player.update(player.rect.x + 50, player.rect.y)
         elif event.type == pygame.KEYDOWN and event.key == pygame.K_UP:
-            player.update(player.rect.x, player.rect.y + 70)
+            player.update(player.rect.x, player.rect.y - 50)
         elif event.type == pygame.KEYDOWN and event.key == pygame.K_DOWN:
-            player.update(player.rect.x, player.rect.y - 70)
+            player.update(player.rect.x, player.rect.y + 50)
 
 
     # изменяем ракурс камеры
-    camera.update(player)
+    # camera.update(player)
     # обновляем положение всех спрайтов
-    for sprite in all_sprites:
-        camera.apply(sprite)
+    # for sprite in all_sprites:
+    #     camera.apply(sprite)
+    screen.fill((150, 150, 150))
     all_sprites.draw(screen)
+    player_group.draw(screen)
     pygame.display.flip()
     clock.tick(FPS)
 pygame.quit()
